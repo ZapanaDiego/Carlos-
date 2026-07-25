@@ -1,5 +1,6 @@
 use std::env;
 use std::fs;
+use std::io;
 use std::path::Path;
 use tracing_subscriber::{
     fmt,
@@ -7,8 +8,14 @@ use tracing_subscriber::{
     util::SubscriberInitExt,
     EnvFilter,
 };
+use tracing_appender::non_blocking::WorkerGuard;
 
-pub fn init() {
+/// Initialize the Rust-side unified logger.
+///
+/// Returns a `WorkerGuard` that **must** be kept alive for the entire lifetime
+/// of the application.  Dropping the guard causes the non-blocking file
+/// appender to flush and stop — any logs emitted after that point will be lost.
+pub fn init() -> WorkerGuard {
     let raw_env = env::var("CARLOSPP_ENV").unwrap_or_else(|_| "prod".to_string());
     let is_dev = raw_env.to_lowercase() == "dev";
 
@@ -30,11 +37,14 @@ pub fn init() {
 
     // Configure file appender for consolidated logs
     let file_appender = tracing_appender::rolling::never("logs", "carlospp_dev.log");
-    let (non_blocking_file, _guard) = tracing_appender::non_blocking(file_appender);
+    let (non_blocking_file, file_guard) = tracing_appender::non_blocking(file_appender);
 
-    // Stdout formatting (JSON)
-    let stdout_layer = fmt::layer()
+    // Stderr formatting (JSON) — Rust process logs go to stderr,
+    // keeping stdout clean (consistent with the project-wide rule that
+    // stdout is reserved for IPC / structured data only).
+    let stderr_layer = fmt::layer()
         .json()
+        .with_writer(io::stderr)
         .with_target(false)
         .with_file(false)
         .with_line_number(false);
@@ -49,7 +59,7 @@ pub fn init() {
 
     tracing_subscriber::registry()
         .with(env_filter)
-        .with(stdout_layer)
+        .with(stderr_layer)
         .with(file_layer)
         .init();
 
@@ -59,4 +69,6 @@ pub fn init() {
         if is_dev { "dev" } else { "prod" },
         raw_env
     );
+
+    file_guard
 }

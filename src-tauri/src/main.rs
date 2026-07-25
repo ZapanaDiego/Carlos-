@@ -21,8 +21,10 @@ fn log_to_backend(level: String, message: String, source: String, metadata: serd
 }
 
 fn main() {
-    // Initialize the observability module and logger first
-    observability::logger::init();
+    // Initialize the observability module and logger first.
+    // The guard MUST be held alive for the duration of main() — dropping it
+    // would cause the non-blocking file appender to stop writing.
+    let _file_log_guard = observability::logger::init();
     
     info!(target: "rust.main", "Tauri application starting up");
 

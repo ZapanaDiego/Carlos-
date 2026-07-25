@@ -1,15 +1,26 @@
 use serde_json::Value;
 use std::io::{BufRead, BufReader};
-use std::process::{ChildStderr, Command, Stdio};
+use std::process::ChildStderr;
 use std::thread;
+use std::fs;
 use tauri::{AppHandle, Manager};
 use tracing::{debug, error, info, trace, warn};
 use chrono::Utc;
+use jsonschema::{JSONSchema, Draft};
+use lazy_static::lazy_static;
 
-pub fn spawn_observer(app_handle: AppHandle, mut stderr: ChildStderr) {
-    // In a real Tauri app this would probably use tokio::spawn or a thread
-    // since tauri uses tokio under the hood. For simplicity, we use std::thread here
-    // as stderr reading is blocking, but it's on a separate thread so it won't block the main event loop.
+lazy_static! {
+    static ref LOG_SCHEMA: Option<JSONSchema> = {
+        let schema_str = fs::read_to_string("schemas/telemetry_log.schema.json").ok()?;
+        let schema_json: Value = serde_json::from_str(&schema_str).ok()?;
+        JSONSchema::options()
+            .with_draft(Draft::Draft7)
+            .compile(&schema_json)
+            .ok()
+    };
+}
+
+pub fn spawn_observer(app_handle: AppHandle, stderr: ChildStderr) {
     thread::spawn(move || {
         let reader = BufReader::new(stderr);
         for line in reader.lines() {
@@ -31,33 +42,44 @@ pub fn spawn_observer(app_handle: AppHandle, mut stderr: ChildStderr) {
 }
 
 fn handle_log_line(app_handle: &AppHandle, raw_line: String) {
-    // Validate if it is valid JSON and matches the schema minimally
     let parsed: Result<Value, _> = serde_json::from_str(&raw_line);
+    
+    let mut validation_error_msg = None;
     
     let is_valid_schema = match &parsed {
         Ok(json) => {
-            json.get("timestamp").is_some()
-                && json.get("level").is_some()
-                && json.get("source").is_some()
-                && json.get("message").is_some()
-                && json.get("metadata").is_some()
-                && json.get("simulation_step").is_some()
+            if let Some(schema) = &*LOG_SCHEMA {
+                if let Err(errors) = schema.validate(json) {
+                    // Extract the first error message
+                    if let Some(first_error) = errors.into_iter().next() {
+                        validation_error_msg = Some(format!("Validation failed: {}", first_error));
+                    }
+                    false
+                } else {
+                    true
+                }
+            } else {
+                warn!("Schema validation skipped: schemas/telemetry_log.schema.json could not be loaded");
+                // If schema didn't load, fallback to basic check
+                let basic_valid = json.get("timestamp").is_some()
+                    && json.get("level").is_some()
+                    && json.get("source").is_some();
+                if !basic_valid {
+                    validation_error_msg = Some("Basic fields missing (schema not loaded)".to_string());
+                }
+                basic_valid
+            }
         }
-        Err(_) => false,
+        Err(e) => {
+            validation_error_msg = Some(format!("JSON Parse Error: {}", e));
+            false
+        }
     };
 
     if is_valid_schema {
-        // Line is valid JSON matching our schema
         let json = parsed.unwrap();
-        
-        // Log it to the consolidated log using tracing
-        // Note: Ideally we'd preserve the exact level, but tracing macros require static levels.
-        // We'll log it as info for now, but the JSON payload contains the true level.
-        // Actually, since we want tracing to write the JSON to the file, and we are already emitting
-        // JSON from the tracing formatter, we could just emit a tracing event with the raw fields.
         let level_str = json.get("level").and_then(|v| v.as_str()).unwrap_or("INFO");
         let msg = json.get("message").and_then(|v| v.as_str()).unwrap_or("");
-        let source = json.get("source").and_then(|v| v.as_str()).unwrap_or("python.sidecar");
         
         match level_str {
             "TRACE" => trace!(target: "python", raw_json = %json, "{}", msg),
@@ -68,30 +90,34 @@ fn handle_log_line(app_handle: &AppHandle, raw_line: String) {
             _ => info!(target: "python", raw_json = %json, "{}", msg),
         }
 
-        // Emit to frontend
         let _ = app_handle.emit_all("log-entry", json);
     } else {
-        // Invalid line
         let fallback_timestamp = Utc::now().to_rfc3339_opts(chrono::SecondsFormat::Millis, true);
+        
+        let mut fallback_metadata = serde_json::json!({
+            "raw": raw_line
+        });
+        
+        if let Some(err_msg) = &validation_error_msg {
+            fallback_metadata.as_object_mut().unwrap().insert("validation_error".to_string(), Value::String(err_msg.clone()));
+        }
+
         let fallback_json = serde_json::json!({
             "timestamp": fallback_timestamp,
             "level": "WARN",
             "source": "rust.sidecar_observer",
             "message": "Received invalid log from Python sidecar",
-            "metadata": {
-                "raw": raw_line
-            },
+            "metadata": fallback_metadata,
             "simulation_step": null
         });
 
-        // Log via tracing
         warn!(
             target: "rust.sidecar_observer",
             raw_line = %raw_line,
+            validation_error = ?validation_error_msg,
             "Received invalid log from Python sidecar"
         );
 
-        // Emit to frontend
         let _ = app_handle.emit_all("log-entry", fallback_json);
     }
 }
