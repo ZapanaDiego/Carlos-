@@ -235,3 +235,5 @@ Este proyecto está en fase de diseño y desarrollo inicial. Se invita a la comu
 - Traducción y adaptación a otros idiomas.
 
 El código fuente y el roadmap detallado están disponibles en el repositorio oficial (enlace). Las contribuciones deben seguir las guías de estilo y el proceso de revisión establecido.
+
+
