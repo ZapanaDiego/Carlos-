@@ -17,15 +17,20 @@ export const CodeEditor: React.FC = () => {
 
   // Very basic regex highlighter
   const highlightCode = (text: string) => {
-    // Escape HTML first
-    let html = text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    // Escape HTML first (including quotes)
+    let html = text
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#039;');
     
     // Highlight keywords
     const keywordRegex = new RegExp(`\\b(${CPP_KEYWORDS.join('|')})\\b`, 'g');
     html = html.replace(keywordRegex, '<span style="color: #cba6f7;">$1</span>'); // Mauve
 
-    // Highlight strings
-    html = html.replace(/(".*?"|'.*?')/g, '<span style="color: #a6e3a1;">$1</span>'); // Green
+    // Highlight strings (matching escaped quotes)
+    html = html.replace(/(&quot;.*?&quot;|&#039;.*?&#039;)/g, '<span style="color: #a6e3a1;">$1</span>'); // Green
 
     // Highlight numbers
     html = html.replace(/\b(\d+)\b/g, '<span style="color: #fab387;">$1</span>'); // Peach
