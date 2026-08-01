@@ -30,7 +30,7 @@ fn main() {
 
     tauri::Builder::default()
         .setup(|app| {
-            let app_handle = app.handle();
+            let app_handle = app.handle().clone();
             
             // In a real app, this is where we'd spawn the sidecar.
             // tauri::api::process::Command::new_sidecar("engine")...

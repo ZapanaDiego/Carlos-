@@ -3,7 +3,7 @@ use std::io::{BufRead, BufReader};
 use std::process::ChildStderr;
 use std::thread;
 use std::fs;
-use tauri::{AppHandle, Manager};
+use tauri::{AppHandle, Manager, Emitter};
 use tracing::{debug, error, info, trace, warn};
 use chrono::Utc;
 use jsonschema::{JSONSchema, Draft};
@@ -90,7 +90,7 @@ fn handle_log_line(app_handle: &AppHandle, raw_line: String) {
             _ => info!(target: "python", raw_json = %json, "{}", msg),
         }
 
-        let _ = app_handle.emit_all("log-entry", json);
+        let _ = app_handle.emit("log-entry", json);
     } else {
         let fallback_timestamp = Utc::now().to_rfc3339_opts(chrono::SecondsFormat::Millis, true);
         
@@ -118,6 +118,6 @@ fn handle_log_line(app_handle: &AppHandle, raw_line: String) {
             "Received invalid log from Python sidecar"
         );
 
-        let _ = app_handle.emit_all("log-entry", fallback_json);
+        let _ = app_handle.emit("log-entry", fallback_json);
     }
 }

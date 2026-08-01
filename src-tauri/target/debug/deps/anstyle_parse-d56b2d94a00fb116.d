@@ -1,0 +1,11 @@
+/home/diego/Documentos/Carlos-/src-tauri/target/debug/deps/anstyle_parse-d56b2d94a00fb116.d: /home/diego/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/anstyle-parse-1.0.0/src/lib.rs /home/diego/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/anstyle-parse-1.0.0/src/params.rs /home/diego/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/anstyle-parse-1.0.0/src/state/mod.rs /home/diego/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/anstyle-parse-1.0.0/src/state/definitions.rs /home/diego/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/anstyle-parse-1.0.0/src/state/table.rs
+
+/home/diego/Documentos/Carlos-/src-tauri/target/debug/deps/libanstyle_parse-d56b2d94a00fb116.rlib: /home/diego/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/anstyle-parse-1.0.0/src/lib.rs /home/diego/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/anstyle-parse-1.0.0/src/params.rs /home/diego/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/anstyle-parse-1.0.0/src/state/mod.rs /home/diego/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/anstyle-parse-1.0.0/src/state/definitions.rs /home/diego/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/anstyle-parse-1.0.0/src/state/table.rs
+
+/home/diego/Documentos/Carlos-/src-tauri/target/debug/deps/libanstyle_parse-d56b2d94a00fb116.rmeta: /home/diego/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/anstyle-parse-1.0.0/src/lib.rs /home/diego/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/anstyle-parse-1.0.0/src/params.rs /home/diego/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/anstyle-parse-1.0.0/src/state/mod.rs /home/diego/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/anstyle-parse-1.0.0/src/state/definitions.rs /home/diego/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/anstyle-parse-1.0.0/src/state/table.rs
+
+/home/diego/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/anstyle-parse-1.0.0/src/lib.rs:
+/home/diego/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/anstyle-parse-1.0.0/src/params.rs:
+/home/diego/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/anstyle-parse-1.0.0/src/state/mod.rs:
+/home/diego/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/anstyle-parse-1.0.0/src/state/definitions.rs:
+/home/diego/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/anstyle-parse-1.0.0/src/state/table.rs:
