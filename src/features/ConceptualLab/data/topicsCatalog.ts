@@ -11,12 +11,15 @@ export const CATEGORY_LABELS: Record<TopicCategory, string> = {
 
 export const TOPICS_CATALOG: TopicItem[] = [
   // Arrays
-  { id: 'vectors', label: 'Vectores (Memoria Contigua)', category: 'arrays', description: 'Explora cómo los vectores gestionan un bloque contiguo de memoria y cómo se redimensionan.' },
-  { id: 'array-insertion', label: 'Inserción y Reindexación', category: 'arrays', description: 'Visualiza el costo O(N) de insertar o eliminar elementos en el medio de un bloque.' },
+  { id: 'vectors-allocation', label: 'Memoria Contigua y Asignación', category: 'arrays', description: 'Descubre cómo el sistema busca un bloque ininterrumpido en la RAM para tu Vector.' },
+  { id: 'array-search', label: 'Acceso Directo O(1) vs Búsqueda O(N)', category: 'arrays', description: 'Entiende por qué saltar a un índice es instantáneo, pero buscar un valor toma tiempo.' },
+  { id: 'array-insertion-shifting', label: 'Inserción y Desplazamiento', category: 'arrays', description: 'Observa cómo los elementos se desplazan físicamente para hacer espacio.' },
+  { id: 'vector-resizing', label: 'Redimensionamiento (Size vs Capacity)', category: 'arrays', description: 'Comprende la diferencia entre tamaño y capacidad, y la costosa operación de resize.' },
   
   // Stacks & Queues
-  { id: 'stack', label: 'Pilas (LIFO - Last In First Out)', category: 'stacks-queues', description: 'Aprende el funcionamiento LIFO. Útil para entender la pila de llamadas (Call Stack).' },
-  { id: 'queue', label: 'Colas (FIFO - First In First Out)', category: 'stacks-queues', description: 'Descubre el procesamiento FIFO, esencial para buffers y algoritmos de búsqueda.' },
+  { id: 'stack-lifo', label: 'Pila (Stack - LIFO)', category: 'stacks-queues', description: 'Último en entrar, Primero en salir. Entiende la mecánica de un tubo vertical.' },
+  { id: 'queue-fifo', label: 'Cola (Queue - FIFO)', category: 'stacks-queues', description: 'Primero en entrar, Primero en salir. La clásica fila de espera.' },
+  { id: 'circular-queue', label: 'Cola Circular (Optimización)', category: 'stacks-queues', description: 'Reutilización de espacio en $O(1)$ sin costosos desplazamientos.' },
   
   // Linked Lists
   { id: 'singly-linked', label: 'Lista Simplemente Enlazada', category: 'linked-lists', description: 'Nodos dispersos en el Heap conectados mediante punteros unidireccionales.' },

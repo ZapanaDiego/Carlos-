@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { HashRouter, Routes, Route } from 'react-router-dom';
 import { loggerService } from './services/LoggerService';
 import { HomePage } from './pages/HomePage';
