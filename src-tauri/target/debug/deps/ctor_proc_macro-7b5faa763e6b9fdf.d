@@ -1,6 +1,0 @@
-/home/diego/Documentos/Carlos-/src-tauri/target/debug/deps/ctor_proc_macro-7b5faa763e6b9fdf.d: /home/diego/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/ctor-proc-macro-0.0.7/src/lib.rs /home/diego/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/ctor-proc-macro-0.0.7/src/../README.md
-
-/home/diego/Documentos/Carlos-/src-tauri/target/debug/deps/libctor_proc_macro-7b5faa763e6b9fdf.so: /home/diego/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/ctor-proc-macro-0.0.7/src/lib.rs /home/diego/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/ctor-proc-macro-0.0.7/src/../README.md
-
-/home/diego/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/ctor-proc-macro-0.0.7/src/lib.rs:
-/home/diego/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/ctor-proc-macro-0.0.7/src/../README.md:
