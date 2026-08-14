@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carlos++ | Lecciones</title>
+    <link rel="stylesheet" href="./frontend/css/style.css">
+    <script defer src="./frontend/components/js/header.js"></script>
+    <script defer src="./frontend/lessons/js/lessonRouter.js"></script>
+</head>
+
+<body>
+    <!-- El contenedor del header será cargado dinámicamente por header.js -->
+    <div id="header-container"></div>
+
+    <div class="lessons-layout">
+        <!-- Panel lateral con la navegación de lecciones -->
+        <aside class="lessons-sidebar">
+            <nav class="sidebar-menu">
+
+                <!-- MÓDULO 1 -->
+                <div class="sidebar-group active">
+                    <div class="sidebar-category">
+                        <span>💻 1. Memoria Básica</span>
+                        <span class="chevron">▼</span>
+                    </div>
+                    <div class="sidebar-sublinks">
+                        <a class="sidebar-link" data-lesson="memoria-matriz" href="#memoria-matriz">1.1 Bytes y
+                            Direcciones (0x...)</a>
+                        <a class="sidebar-link" data-lesson="stack-vs-heap" href="#stack-vs-heap">1.2 Stack vs Heap</a>
+                    </div>
+                </div>
+
+                <!-- MÓDULO 2 -->
+                <div class="sidebar-group">
+                    <div class="sidebar-category">
+                        <span>📦 2. Arreglos y Punteros</span>
+                        <span class="chevron">▼</span>
+                    </div>
+                    <div class="sidebar-sublinks">
+                        <a class="sidebar-link" data-lesson="array-estatico" href="#array-estatico">2.1 Arreglos y
+                            Offsets</a>
+                        <a class="sidebar-link" data-lesson="punteros-basicos" href="#punteros-basicos">2.2 Operadores &
+                            y *</a>
+                        <a class="sidebar-link" data-lesson="referencias" href="#referencias">2.3 Referencias
+                            (Alias)</a>
+                        <a class="sidebar-link" data-lesson="puntero-aritmetica" href="#puntero-aritmetica">2.4
+                            Aritmética de Punteros</a>
+                    </div>
+                </div>
+
+                <!-- MÓDULO 3 -->
+                <div class="sidebar-group">
+                    <div class="sidebar-category">
+                        <span>🧱 3. Memoria Dinámica</span>
+                        <span class="chevron">▼</span>
+                    </div>
+                    <div class="sidebar-sublinks">
+                        <a class="sidebar-link" data-lesson="new-delete" href="#new-delete">3.1 new y delete</a>
+                        <a class="sidebar-link" data-lesson="array-dinamico" href="#array-dinamico">3.2 Arreglos
+                            Dinámicos y **</a>
+                        <a class="sidebar-link" data-lesson="memory-leaks" href="#memory-leaks">3.3 Memory Leaks</a>
+                    </div>
+                </div>
+
+                <!-- MÓDULO 4 -->
+                <div class="sidebar-group">
+                    <div class="sidebar-category">
+                        <span>🔗 4. Listas Enlazadas</span>
+                        <span class="chevron">▼</span>
+                    </div>
+                    <div class="sidebar-sublinks">
+                        <a class="sidebar-link" data-lesson="linked-list-singly" href="#linked-list-singly">4.1 Lista
+                            Simple</a>
+                        <a class="sidebar-link" data-lesson="linked-list-doubly" href="#linked-list-doubly">4.2 Lista
+                            Doble</a>
+                        <a class="sidebar-link" data-lesson="linked-list-circular" href="#linked-list-circular">4.3
+                            Lista Circular</a>
+                    </div>
+                </div>
+
+                <!-- MÓDULO 5 -->
+                <div class="sidebar-group">
+                    <div class="sidebar-category">
+                        <span>📚 5. Pilas y Colas</span>
+                        <span class="chevron">▼</span>
+                    </div>
+                    <div class="sidebar-sublinks">
+                        <a class="sidebar-link" data-lesson="stack-ds" href="#stack-ds">5.1 Pilas (LIFO)</a>
+                        <a class="sidebar-link" data-lesson="queue-ds" href="#queue-ds">5.2 Colas (FIFO)</a>
+                    </div>
+                </div>
+
+                <!-- MÓDULO 6 -->
+                <div class="sidebar-group">
+                    <div class="sidebar-category">
+                        <span>🌳 6. Árboles</span>
+                        <span class="chevron">▼</span>
+                    </div>
+                    <div class="sidebar-sublinks">
+                        <a class="sidebar-link" data-lesson="tree-bst" href="#tree-bst">6.1 Árbol Binario (BST)</a>
+                        <a class="sidebar-link" data-lesson="tree-avl" href="#tree-avl">6.2 Árbol AVL y Rotaciones</a>
+                    </div>
+                </div>
+
+                <!-- MÓDULO 7 -->
+                <div class="sidebar-group">
+                    <div class="sidebar-category">
+                        <span>🗂️ 7. Tablas Hash</span>
+                        <span class="chevron">▼</span>
+                    </div>
+                    <div class="sidebar-sublinks">
+                        <a class="sidebar-link" data-lesson="hash-chaining" href="#hash-chaining">7.1 Encadenamiento
+                            (Chaining)</a>
+                        <a class="sidebar-link" data-lesson="hash-open" href="#hash-open">7.2 Direccionamiento
+                            Abierto</a>
+                    </div>
+                </div>
+
+                <!-- MÓDULO 8 -->
+                <div class="sidebar-group">
+                    <div class="sidebar-category">
+                        <span>🕸️ 8. Grafos</span>
+                        <span class="chevron">▼</span>
+                    </div>
+                    <div class="sidebar-sublinks">
+                        <a class="sidebar-link" data-lesson="graph-matrix" href="#graph-matrix">8.1 Matriz de
+                            Adyacencia</a>
+                        <a class="sidebar-link" data-lesson="graph-list" href="#graph-list">8.2 Lista de Adyacencia</a>
+                    </div>
+                </div>
+
+            </nav>
+        </aside>
+
+        <!-- Área principal donde se cargará el contenido de la lección seleccionada -->
+        <main class="lesson-content" id="lesson-content">
+            <!-- Estado inicial de bienvenida -->
+            <div class="welcome-state">
+                <div class="welcome-icon">📖</div>
+                <h2>Selecciona un tema</h2>
+                <p>Elige un tema del panel izquierdo para comenzar a aprender sobre estructuras de datos y su
+                    representación en memoria.</p>
+            </div>
+        </main>
+    </div>
+</body>
+
+</html>

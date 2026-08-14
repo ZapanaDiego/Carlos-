@@ -1,0 +1,25 @@
+/* 
+ * Carlos++ - Sistema de Diseño
+ * Índice Principal
+ */
+
+@import url('./base/variables.css');
+@import url('./base/reset.css');
+
+@import url('./layout/grid.css');
+@import url('./layout/utilities.css');
+@import url('./layout/responsive.css');
+
+@import url('./components/navbar.css');
+@import url('./components/buttons.css');
+@import url('./components/panels.css');
+
+@import url('./features/simulator.css');
+@import url('./features/memory.css');
+@import url('./features/lessons.css');
+
+/*
+ * Código css de las lecciones
+ */
+
+@import url('./features/lessons/hardware-memory.css');

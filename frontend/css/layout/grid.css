@@ -1,0 +1,12 @@
+/* --- Layout Principal --- */
+body {
+    padding-top: 60px; /* Compensar la barra de navegación fija */
+}
+
+.main-container {
+    min-height: calc(100vh - 60px);
+    padding: 16px;
+    max-width: 1600px;
+    margin: 0 auto;
+}
+

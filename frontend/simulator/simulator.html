@@ -1,0 +1,50 @@
+<div class="simulator-grid">
+    <!-- Columna izquierda: Editor y Consola -->
+    <div class="panel" id="editor-panel">
+        <div class="panel-header">
+            <span class="dot" style="background-color: var(--accent-green);"></span>
+            Editor de Código
+        </div>
+        <div class="editor-container">
+            <div class="editor-wrapper">
+                <div class="line-numbers" id="line-numbers"></div>
+                <textarea class="editor-textarea" id="code-editor" spellcheck="false" placeholder="#include <iostream>
+using namespace std;
+
+int main() {
+    int x = 10;
+    int* ptr = new int(42);
+    cout << *ptr << endl;
+    delete ptr;
+    return 0;
+}"></textarea>
+            </div>
+            <div class="controls-bar">
+                <button class="btn-primary" id="btn-run">▶ Ejecutar</button>
+                <button class="btn-secondary" id="btn-step">⏭ Paso</button>
+                <button class="btn-danger" id="btn-reset">↺ Reset</button>
+            </div>
+        </div>
+        <div class="output-console" id="output-console">
+            // La salida del programa aparecerá aquí...
+        </div>
+    </div>
+
+    <!-- Columna derecha: Visualización de Memoria -->
+    <div class="panel" id="memory-panel">
+        <div class="panel-header">
+            <span class="dot" style="background-color: var(--accent-blue);"></span>
+            Visualización de Memoria
+        </div>
+        <div class="memory-canvas" id="memory-canvas">
+            <div class="memory-section">
+                <h3 class="memory-section-title text-green">STACK</h3>
+                <div class="memory-blocks" id="stack-blocks"></div>
+            </div>
+            <div class="memory-section">
+                <h3 class="memory-section-title text-red">HEAP</h3>
+                <div class="memory-blocks" id="heap-blocks"></div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,61 @@
+/* --- Botones --- */
+.btn {
+    padding: 6px 14px;
+    border-radius: var(--radius-sm);
+    font-size: 0.8rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    border: 1px solid transparent;
+    font-family: 'Inter', sans-serif;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+}
+
+.btn-primary {
+    background-color: var(--accent-blue);
+    color: #ffffff;
+    border-color: var(--accent-blue);
+}
+
+.btn-primary:hover:not(:disabled) {
+    filter: brightness(1.15);
+    box-shadow: 0 0 12px rgba(88, 166, 255, 0.3);
+}
+
+.btn-secondary {
+    background-color: transparent;
+    border-color: var(--border-color);
+    color: var(--text-secondary);
+}
+
+.btn-secondary:hover:not(:disabled) {
+    border-color: var(--accent-blue);
+    color: var(--accent-blue);
+}
+
+.btn-danger {
+    background-color: transparent;
+    border-color: var(--border-color);
+    color: var(--accent-red);
+}
+
+.btn-danger:hover:not(:disabled) {
+    background-color: rgba(255, 123, 114, 0.1);
+    border-color: var(--accent-red);
+}
+
+.btn-icon {
+    width: 32px;
+    height: 32px;
+    padding: 0;
+    border-radius: 50%;
+}
+
+.btn:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+

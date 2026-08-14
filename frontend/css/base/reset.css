@@ -1,0 +1,43 @@
+/* 
+ * Carlos++ - Sistema de Diseño
+ * Hoja de estilos principal
+ */
+
+
+
+/* --- Reset & Base --- */
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+}
+
+/* Color de selección global */
+::selection {
+    background-color: var(--accent-blue);
+    color: #ffffff;
+}
+
+/* --- Tipografía --- */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap');
+
+body {
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+}
+
+.code, .editor-textarea, code, pre {
+    font-family: 'JetBrains Mono', monospace;
+}
+
