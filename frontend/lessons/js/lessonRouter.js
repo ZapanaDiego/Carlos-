@@ -35,16 +35,18 @@ document.addEventListener('DOMContentLoaded', () => {
             
             // Cargar Dinámicamente el JavaScript de la lección
             try {
-                // Importación dinámica usando ES Modules (ruta relativa desde lessonRouter.js)
-                const module = await import(`./lessons/${lessonName}.js`);
+                // Importación dinámica usando ES Modules (bypassing cache para desarrollo local)
+                const module = await import(`./lessons/${lessonName}.js?t=${Date.now()}`);
                 activeLessonModule = module;
                 
                 // Inicializar la lección
                 if (typeof module.init === 'function') {
                     module.init();
+                } else {
+                    console.warn(`La lección ${lessonName} no tiene una función init() exportada.`);
                 }
             } catch (jsError) {
-                console.log(`Sin JS interactivo para la lección: ${lessonName}`);
+                console.log(`Sin JS interactivo para la lección: ${lessonName}`, jsError);
             }
 
             // Update active state in sidebar
