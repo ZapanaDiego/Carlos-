@@ -6,6 +6,11 @@
     <title>Carlos++ | Simulador de Memoria</title>
     <link rel="stylesheet" href="./frontend/css/style.css">
     <script defer src="./frontend/components/js/header.js"></script>
+    <script defer src="./frontend/simulator/js/api.js"></script>
+    <script defer src="./frontend/simulator/js/memoryState.js"></script>
+    <script defer src="./frontend/simulator/js/blockRenderer.js"></script>
+    <script defer src="./frontend/simulator/js/structureRenderer.js"></script>
+    <script defer src="./frontend/simulator/js/pointerRenderer.js"></script>
     <script defer src="./frontend/simulator/js/editor.js"></script>
     <script defer src="./frontend/simulator/js/canvasView.js"></script>
     <script defer src="./frontend/simulator/js/execution.js"></script>
@@ -52,6 +57,14 @@ int main() {
                     Visualización de Memoria
                 </div>
                 <div class="memory-canvas" id="memory-canvas">
+                    <!-- SVG Overlay para punteros -->
+                    <svg id="pointers-overlay" class="pointers-overlay">
+                        <defs>
+                            <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+                                <polygon points="0 0, 10 3.5, 0 7" fill="var(--accent-yellow)" />
+                            </marker>
+                        </defs>
+                    </svg>
                     <div class="memory-section stack-section">
                         <h3 class="memory-section-title text-green">STACK</h3>
                         <div class="memory-blocks" id="stack-blocks"></div>
@@ -60,6 +73,8 @@ int main() {
                         <h3 class="memory-section-title text-red">HEAP</h3>
                         <div class="memory-blocks" id="heap-blocks"></div>
                     </div>
+                    <!-- Contenedor para grafos/árboles dinámicos -->
+                    <div id="structures-container" class="hidden"></div>
                 </div>
             </div>
         </div>

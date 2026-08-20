@@ -22,3 +22,75 @@
  * CÃ³digo css de las lecciones
  */
 @import url('./features/lessons/memoria-matriz.css');
+@import url('./features/lessons/stack-vs-heap.css');/* ==========================================================================
+   Nuevas animaciones y estados (Agregados para SimulatorAPI)
+   ========================================================================== */
+
+/* Animación cuando un valor cambia en memoria */
+@keyframes highlightPulse {
+    0% { background-color: var(--accent-yellow); color: #000; box-shadow: 0 0 10px var(--accent-yellow); }
+    100% { background-color: transparent; }
+}
+
+.value-changed {
+    animation: highlightPulse 0.8s ease-out;
+}
+
+/* Animación cuando un bloque se va a eliminar (Fade out) */
+.removing {
+    opacity: 0;
+    transform: scale(0.9);
+    transition: all 0.3s ease;
+}
+
+/* Estilo para bloques de heap que han sido liberados (freed) */
+.block-freed {
+    opacity: 0.5;
+    border: 1px dashed var(--accent-red) !important;
+    text-decoration: line-through;
+}
+.block-freed .block-value {
+    color: var(--accent-red) !important;
+    text-decoration: line-through;
+}
+
+/* ==========================================================================
+   Estados del Editor
+   ========================================================================== */
+
+.line-error {
+    background-color: rgba(255, 123, 114, 0.2);
+    border-right: 3px solid var(--accent-red);
+}
+
+.line-current {
+    background-color: rgba(88, 166, 255, 0.2);
+    border-right: 3px solid var(--accent-blue);
+}
+
+.editor-readonly {
+    opacity: 0.7;
+    cursor: not-allowed;
+    background-color: var(--bg-tertiary);
+}
+
+/* ==========================================================================
+   Contenedor de Estructuras (Grafos/Árboles)
+   ========================================================================== */
+
+#structures-container {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 10;
+    background-color: var(--bg-primary); /* Oculta la vista de bloques normal */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#structures-container.hidden {
+    display: none;
+}

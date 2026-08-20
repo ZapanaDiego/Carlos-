@@ -115,11 +115,6 @@ function loadScene(sceneNumber) {
 
 window.loadScene = loadScene;
 
-if (document.readyState === "loading") {
-  document.addEventListener("DOMContentLoaded", () => loadScene(1));
-} else {
-  loadScene(1);
-}
 
 function nextScene() {
   if (currentScene < 5) {
@@ -980,13 +975,6 @@ export function init() {
   window.nextScene = nextScene;
   window.prevScene = prevScene;
   window.toggleSound = toggleSound;
-  window.toggleOdometer = toggleOdometer;
-  window.resetOdometer = resetOdometer;
-  window.inspectMatrixCell = inspectMatrixCell;
-  window.toggleBit = toggleBit;
-  window.setBitPreset = setBitPreset;
-  window.testContiguity = testContiguity;
-  window.selectArrayIndex = selectArrayIndex;
 
   // Arrancar la primera escena
   loadScene(1);

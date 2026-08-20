@@ -35,8 +35,8 @@ document.addEventListener('DOMContentLoaded', () => {
             
             // Cargar Dinámicamente el JavaScript de la lección
             try {
-                // Importación dinámica usando ES Modules (bypassing cache para desarrollo local)
-                const module = await import(`./lessons/${lessonName}.js?t=${Date.now()}`);
+                // Importación dinámica usando ES Modules y rutas absolutas desde la raíz
+                const module = await import(`/frontend/lessons/js/lessons/${lessonName}.js?t=${Date.now()}`);
                 activeLessonModule = module;
                 
                 // Inicializar la lección

@@ -1,7 +1,7 @@
 /* --- Lienzo de Memoria (.memory-canvas) --- */
 .memory-canvas {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     height: 100%;
     position: relative;
     overflow: hidden;
@@ -16,7 +16,8 @@
 }
 
 .memory-section:first-child {
-    border-bottom: 1px dashed var(--border-color);
+    border-right: 1px dashed var(--border-color);
+    border-bottom: none;
 }
 
 .memory-section-title {
@@ -40,7 +41,7 @@
 
 .memory-blocks {
     display: flex;
-    flex-wrap: wrap;
+    flex-direction: column;
     gap: 12px;
     align-content: flex-start;
 }
@@ -129,5 +130,118 @@ svg.pointers-overlay {
     fill: none;
     marker-end: url(#arrowhead);
     filter: drop-shadow(0 2px 4px rgba(0,0,0,0.5));
+}
+
+/* --- Animaciones de Diffing (BlockRenderer) --- */
+
+/* Animación de entrada para bloques nuevos */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-8px) scale(0.95); }
+    to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.memory-block.fade-in {
+    animation: fadeIn 0.3s ease-out;
+}
+
+/* Animación de pulso para valores que cambian */
+@keyframes highlightPulse {
+    0%   { background-color: rgba(88, 166, 255, 0.3); }
+    50%  { background-color: rgba(88, 166, 255, 0.15); }
+    100% { background-color: transparent; }
+}
+
+.value-changed {
+    animation: highlightPulse 0.6s ease-out;
+}
+
+/* Animación de salida para bloques eliminados */
+@keyframes fadeOut {
+    from { opacity: 1; transform: scale(1); }
+    to   { opacity: 0; transform: scale(0.85) translateY(8px); }
+}
+
+.memory-block.removing {
+    animation: fadeOut 0.4s ease-in forwards;
+    pointer-events: none;
+}
+
+/* Estilo para bloques heap liberados (delete) */
+.memory-block.block-freed {
+    border-left-color: var(--accent-red);
+    border-style: dashed;
+    opacity: 0.55;
+}
+
+.memory-block.block-freed .block-value {
+    text-decoration: line-through;
+    color: var(--accent-red);
+}
+
+.memory-block.block-freed::after {
+    content: 'FREED';
+    position: absolute;
+    bottom: 2px;
+    right: 4px;
+    font-size: 0.5rem;
+    color: var(--accent-red);
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+
+/* Etiqueta de frame (stack frame: main, etc.) */
+.block-frame {
+    font-size: 0.55rem;
+    color: var(--accent-purple);
+    font-family: 'JetBrains Mono', monospace;
+    margin-bottom: 2px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* --- Estilos para StructureRenderer --- */
+
+#structures-container {
+    display: none;
+    padding: 16px;
+    border-top: 1px dashed var(--border-color);
+}
+
+.structure-wrapper {
+    margin-bottom: 16px;
+}
+
+.structure-title {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: var(--accent-yellow);
+    margin-bottom: 8px;
+    padding-left: 8px;
+    border-left: 3px solid var(--accent-yellow);
+    font-weight: 600;
+}
+
+.structure-viz {
+    min-height: 200px;
+    background-color: var(--bg-primary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+}
+
+.structure-svg {
+    display: block;
+}
+
+.structure-canvas {
+    display: block;
+    cursor: pointer;
+}
+
+/* Hover para nodos SVG */
+.structure-node circle:hover {
+    fill: #30363d;
+    cursor: pointer;
 }
 

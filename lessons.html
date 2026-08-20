@@ -10,12 +10,102 @@
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;800&family=Plus+Jakarta+Sans:wght@400;500;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    colors: {
+                        cyber: {
+                            bg: '#080c14',
+                            card: '#0f172a',
+                            border: '#1e293b',
+                            stack: '#3b82f6',
+                            heap: '#10b981',
+                            pointer: '#f59e0b',
+                            error: '#ef4444',
+                            purple: '#8b5cf6'
+                        }
+                    },
+                    animation: {
+                        'pulse-glow': 'pulseGlow 2s infinite',
+                        'shake': 'shake 0.4s cubic-bezier(.36,.07,.19,.97) both',
+                        'float': 'float 3s ease-in-out infinite',
+                        'laser': 'laserPulse 1.5s infinite',
+                    },
+                    keyframes: {
+                        pulseGlow: {
+                            '0%, 100%': { boxShadow: '0 0 15px rgba(59, 130, 246, 0.4)' },
+                            '50%': { boxShadow: '0 0 30px rgba(59, 130, 246, 0.8)' },
+                        },
+                        shake: {
+                            '10%, 90%': { transform: 'translate3d(-3px, 0, 0)' },
+                            '20%, 80%': { transform: 'translate3d(5px, 0, 0)' },
+                            '30%, 50%, 70%': { transform: 'translate3d(-7px, 0, 0)' },
+                            '40%, 60%': { transform: 'translate3d(7px, 0, 0)' },
+                        },
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0px)' },
+                            '50%': { transform: 'translateY(-5px)' },
+                        },
+                        laserPulse: {
+                            '0%, 100%': { opacity: '0.6', strokeDashoffset: '0' },
+                            '50%': { opacity: '1', strokeDashoffset: '-20' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #090d16;
+            border-radius: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #334155;
+            border-radius: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: #3b82f6;
+        }
+
+        .scene-enter {
+            animation: fadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px) scale(0.99); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        .stack-frame {
+            transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .heap-block {
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .pointer-line {
+            stroke-dasharray: 6;
+            animation: laserPulse 1.2s linear infinite;
+        }
+    </style>
+
     <link rel="stylesheet" href="./frontend/css/style.css">
     <script defer src="./frontend/components/js/header.js"></script>
     <script defer src="./frontend/lessons/js/lessonRouter.js"></script>
 </head>
 
-<body>
+<body class="h-full flex flex-col font-sans bg-slate-950 text-slate-100 selection:bg-blue-500 selection:text-black overflow-x-hidden">
     <!-- El contenedor del header será cargado dinámicamente por header.js -->
     <div id="header-container"></div>
 
@@ -44,8 +134,7 @@
                         <span class="chevron">▼</span>
                     </div>
                     <div class="sidebar-sublinks">
-                        <a class="sidebar-link" data-lesson="array-estatico" href="#array-estatico">2.1 Arreglos y
-                            Offsets</a>
+                        <a class="sidebar-link" data-lesson="array-estatico" href="#array-estatico">2.1 Arreglos</a>
                         <a class="sidebar-link" data-lesson="punteros-basicos" href="#punteros-basicos">2.2 Operadores &
                             y *</a>
                         <a class="sidebar-link" data-lesson="referencias" href="#referencias">2.3 Referencias
