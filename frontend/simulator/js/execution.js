@@ -352,20 +352,39 @@ window.ExecutionController = (function () {
             stackRenderer.applyDiff(event.stackDiff);
             heapRenderer.applyDiff(event.heapDiff);
             
-            // Las flechas se actualizan *después* de los bloques (para tener DOM fresco)
-            // y requieren el estado completo del stack/heap para validar dangling pointers.
-            arrowRenderer.render(memoryState.stackMap, memoryState.heapMap);
-        });
-
-        // Conectar botones
-        const btnRun   = document.getElementById('btn-run');
-        const btnStep  = document.getElementById('btn-step');
-        const btnReset = document.getElementById('btn-reset');
-
-        if (btnRun)   btnRun.addEventListener('click', handleRun);
-        if (btnStep)  btnStep.addEventListener('click', handleStep);
-        if (btnReset) btnReset.addEventListener('click', handleReset);
+        // Las flechas se actualizan *después* de los bloques (para tener DOM fresco)
+        // y requieren el estado completo del stack/heap para validar dangling pointers.
+        arrowRenderer.render(memoryState.stackMap, memoryState.heapMap);
     });
+
+    // Conectar botones
+    const btnRun   = document.getElementById('btn-run');
+    const btnStep  = document.getElementById('btn-step');
+    const btnReset = document.getElementById('btn-reset');
+
+    if (btnRun)   btnRun.addEventListener('click', handleRun);
+    if (btnStep)  btnStep.addEventListener('click', handleStep);
+    if (btnReset) btnReset.addEventListener('click', handleReset);
+
+    // Renderizar datos de ejemplo (demo) para visualizar inicialmente la UI
+    // Esto reemplaza el antiguo renderDemo() de canvasView.js, usando el nuevo sistema.
+    const demoSnapshot = {
+        step: 0,
+        currentLine: null,
+        finished: false,
+        output: [],
+        error: null,
+        stack: [
+            { id: 's_x', frame: 'main', name: 'x', type: 'int', value: '10', address: '0x7ffc01' },
+            { id: 's_ptr', frame: 'main', name: 'ptr', type: 'int*', value: '0x55a302', address: '0x7ffc02', pointsTo: 'h_1' }
+        ],
+        heap: [
+            { id: 'h_1', type: 'int', value: '42', address: '0x55a302', status: 'alive' }
+        ],
+        structures: null
+    };
+    processSnapshot(demoSnapshot);
+});
 
     // ─── API Pública ───────────────────────────────────────────────
 
