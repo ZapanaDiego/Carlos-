@@ -60,13 +60,8 @@ window.MemoryCanvas = (function() {
         renderHeap(demoHeap);
     }
 
-    document.addEventListener('DOMContentLoaded', () => {
-        stackContainer = document.getElementById('stack-blocks');
-        heapContainer = document.getElementById('heap-blocks');
-        if (stackContainer && heapContainer) {
-            renderDemo();
-        }
-    });
+    // El listener DOMContentLoaded que llamaba a renderDemo() ha sido removido
+    // para evitar conflictos con BlockRenderer (Bug corregido).
 
     return {
         renderStack,

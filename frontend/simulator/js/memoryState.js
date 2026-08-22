@@ -52,6 +52,8 @@ window.MemoryState = (function () {
         get output()     { return this._output; }
         get error()      { return this._error; }
         get structures() { return this._structures; }
+        get stackMap()   { return this._stackMap; }
+        get heapMap()    { return this._heapMap; }
 
         // ─── Observer Pattern ──────────────────────────────────────────
 

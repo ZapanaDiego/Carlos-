@@ -132,6 +132,29 @@ svg.pointers-overlay {
     filter: drop-shadow(0 2px 4px rgba(0,0,0,0.5));
 }
 
+/* Animación de entrada de flechas */
+@keyframes arrowFadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+.arrow-entering {
+    animation: arrowFadeIn 0.3s ease-out forwards;
+}
+
+/* Animación de salida de flechas (reusa fadeOut de blockRenderer si no choca) */
+.arrow-exiting {
+    animation: fadeOut 0.3s ease-in forwards;
+}
+
+/* Flechas dangling (Use-After-Free) */
+.pointer-arrow.arrow-dangling {
+    stroke: var(--accent-red) !important;
+    stroke-dasharray: 6 4;
+    opacity: 0.8;
+    filter: drop-shadow(0 0 4px rgba(255, 123, 114, 0.5));
+    marker-end: url(#arrowhead-dangling);
+}
+
 /* --- Animaciones de Diffing (BlockRenderer) --- */
 
 /* Animación de entrada para bloques nuevos */

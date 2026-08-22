@@ -29,8 +29,8 @@ window.ExecutionController = (function () {
     let heapRenderer = null;
     /** @type {StructureRenderer|null} */
     let structureRenderer = null;
-    /** @type {PointerRenderer|null} */
-    let pointerRenderer = null;
+    /** @type {ArrowRenderer|null} */
+    let arrowRenderer = null;
     /** @type {HTMLElement|null} */
     let outputConsole = null;
 
@@ -313,7 +313,7 @@ window.ExecutionController = (function () {
         if (stackRenderer)     stackRenderer.clear();
         if (heapRenderer)      heapRenderer.clear();
         if (structureRenderer) structureRenderer.clear();
-        if (pointerRenderer)   pointerRenderer.clear();
+        if (arrowRenderer)     arrowRenderer.clear();
 
         // Reset del editor
         window.EditorView.clearHighlights();
@@ -340,7 +340,7 @@ window.ExecutionController = (function () {
         stackRenderer     = new window.BlockRenderer('stack-blocks', 'stack');
         heapRenderer      = new window.BlockRenderer('heap-blocks', 'heap');
         structureRenderer = new window.StructureRenderer('structures-container');
-        pointerRenderer   = new window.PointerRenderer('pointers-overlay', memoryState);
+        arrowRenderer     = new window.ArrowRenderer('pointers-overlay');
 
         // Suscribir las Vistas al Modelo (patrón Observer)
         // Cuando MemoryState notifica un cambio, las Vistas aplican el diff
@@ -351,7 +351,10 @@ window.ExecutionController = (function () {
             }
             stackRenderer.applyDiff(event.stackDiff);
             heapRenderer.applyDiff(event.heapDiff);
-            if (pointerRenderer) pointerRenderer.draw();
+            
+            // Las flechas se actualizan *después* de los bloques (para tener DOM fresco)
+            // y requieren el estado completo del stack/heap para validar dangling pointers.
+            arrowRenderer.render(memoryState.stackMap, memoryState.heapMap);
         });
 
         // Conectar botones

@@ -10,7 +10,7 @@
     <script defer src="./frontend/simulator/js/memoryState.js"></script>
     <script defer src="./frontend/simulator/js/blockRenderer.js"></script>
     <script defer src="./frontend/simulator/js/structureRenderer.js"></script>
-    <script defer src="./frontend/simulator/js/pointerRenderer.js"></script>
+    <script defer src="./frontend/simulator/js/arrowRenderer.js"></script>
     <script defer src="./frontend/simulator/js/editor.js"></script>
     <script defer src="./frontend/simulator/js/canvasView.js"></script>
     <script defer src="./frontend/simulator/js/execution.js"></script>
@@ -62,6 +62,9 @@ int main() {
                         <defs>
                             <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
                                 <polygon points="0 0, 10 3.5, 0 7" fill="var(--accent-yellow)" />
+                            </marker>
+                            <marker id="arrowhead-dangling" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+                                <polygon points="0 0, 10 3.5, 0 7" fill="var(--accent-red)" />
                             </marker>
                         </defs>
                     </svg>
