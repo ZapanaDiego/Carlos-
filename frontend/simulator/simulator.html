@@ -37,14 +37,24 @@ int main() {
             Visualización de Memoria
         </div>
         <div class="memory-canvas" id="memory-canvas">
-            <div class="memory-section">
+            <!-- SVG Overlay para punteros -->
+            <svg id="pointers-overlay" class="pointers-overlay">
+                <defs>
+                    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+                        <polygon points="0 0, 10 3.5, 0 7" fill="var(--accent-yellow)" />
+                    </marker>
+                </defs>
+            </svg>
+            <div class="memory-section stack-section">
                 <h3 class="memory-section-title text-green">STACK</h3>
                 <div class="memory-blocks" id="stack-blocks"></div>
             </div>
-            <div class="memory-section">
+            <div class="memory-section heap-section">
                 <h3 class="memory-section-title text-red">HEAP</h3>
                 <div class="memory-blocks" id="heap-blocks"></div>
             </div>
+            <!-- Contenedor para grafos/árboles dinámicos -->
+            <div id="structures-container" class="hidden"></div>
         </div>
     </div>
 </div>
