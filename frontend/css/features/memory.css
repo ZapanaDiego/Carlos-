@@ -42,75 +42,100 @@
 .memory-blocks {
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: 24px;
     align-content: flex-start;
+    padding-top: 16px; /* Ensure top elements don't get clipped */
 }
 
 /* --- Bloque de Memoria (.memory-block) --- */
 .memory-block {
-    width: 100px;
-    min-height: 70px;
-    background-color: var(--bg-tertiary);
+    width: 140px;
+    min-height: 85px;
+    background-color: var(--bg-primary); /* Fondo oscuro principal */
     border: 1px solid var(--border-color);
-    border-radius: var(--radius-md);
-    padding: 8px;
+    border-radius: 8px;
     position: relative;
     transition: transform var(--transition-fast), box-shadow var(--transition-fast);
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+    
+    /* Grid layout para estructurar la "tarjeta" de memoria */
+    display: grid;
+    grid-template-areas:
+        "address address"
+        "type name"
+        "value value";
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto auto 1fr;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
 }
 
 .memory-block:hover {
     transform: translateY(-2px);
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
     z-index: 10;
 }
 
 .memory-block.stack {
-    border-left: 3px solid var(--accent-green);
+    border-left: 4px solid var(--accent-green);
 }
 
 .memory-block.heap {
-    border-left: 3px solid var(--accent-red);
+    border-left: 4px solid var(--accent-red);
 }
 
+/* 1. Dirección de Memoria (Header) */
+.block-address {
+    grid-area: address;
+    background-color: var(--bg-secondary);
+    color: var(--accent-purple);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.65rem;
+    padding: 5px 8px;
+    text-align: center;
+    border-bottom: 1px dashed var(--border-color);
+    letter-spacing: 1px;
+    font-weight: 700;
+    border-top-right-radius: 7px; /* Respeta el borde exterior */
+    /* top-left es plano debido al border-left de colores */
+}
+
+/* 2. Nombre de la variable */
 .block-name {
-    font-size: 0.7rem;
-    font-weight: 600;
-    color: var(--text-primary);
-    margin-bottom: 4px;
+    grid-area: name;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--accent-yellow); /* Resalta el nombre de la variable */
+    padding: 6px 8px 2px 8px;
+    text-align: right;
     text-overflow: ellipsis;
     overflow: hidden;
     white-space: nowrap;
 }
 
+/* 3. Tipo C++ */
 .block-type {
+    grid-area: type;
     font-size: 0.65rem;
     color: var(--text-secondary);
     font-family: 'JetBrains Mono', monospace;
+    padding: 6px 8px 2px 8px;
+    text-align: left;
 }
 
+/* 4. Valor (Body) */
 .block-value {
-    font-size: 0.85rem;
+    grid-area: value;
+    font-size: 1.15rem; /* Más grande y legible */
     font-weight: 700;
     color: var(--accent-blue);
-    margin-top: 6px;
+    padding: 8px 8px 12px 8px;
     text-align: center;
     word-break: break-all;
-}
-
-.block-address {
-    position: absolute;
-    top: -8px;
-    right: -4px;
-    font-size: 0.55rem;
-    background-color: var(--accent-purple);
-    color: #ffffff;
-    padding: 1px 5px;
-    border-radius: 10px;
-    font-family: 'JetBrains Mono', monospace;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(0,0,0,0.1); /* Efecto leve de hundimiento */
+    border-bottom-left-radius: 7px;
+    border-bottom-right-radius: 7px;
 }
 
 /* --- Flechas Punteros (.pointer-arrow) --- */
@@ -191,35 +216,41 @@ svg.pointers-overlay {
 
 /* Estilo para bloques heap liberados (delete) */
 .memory-block.block-freed {
-    border-left-color: var(--accent-red);
+    border-left-color: var(--accent-red) !important;
     border-style: dashed;
     opacity: 0.55;
+    background-color: rgba(255, 123, 114, 0.05); /* Slight red tint */
+    filter: grayscale(0.5);
 }
 
 .memory-block.block-freed .block-value {
     text-decoration: line-through;
     color: var(--accent-red);
+    opacity: 0.7;
 }
 
 .memory-block.block-freed::after {
     content: 'FREED';
     position: absolute;
-    bottom: 2px;
+    bottom: -18px; /* Move below the block so it doesn't overlap value */
     right: 4px;
-    font-size: 0.5rem;
+    font-size: 0.65rem;
     color: var(--accent-red);
     font-weight: 700;
-    letter-spacing: 1px;
+    letter-spacing: 2px;
 }
 
 /* Etiqueta de frame (stack frame: main, etc.) */
 .block-frame {
-    font-size: 0.55rem;
-    color: var(--accent-purple);
+    position: absolute;
+    top: -18px;
+    left: 4px;
+    font-size: 0.6rem;
+    color: var(--accent-green);
     font-family: 'JetBrains Mono', monospace;
-    margin-bottom: 2px;
     text-transform: uppercase;
     letter-spacing: 0.5px;
+    font-weight: 700;
 }
 
 /* --- Estilos para StructureRenderer --- */
